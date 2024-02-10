@@ -7,10 +7,13 @@
 </head>
 <body>
   <h1>Welcome to the Currency Exchanger!</h1>
-  <form id="exchange">
+  <form id="exchange" autocomplete="off">
     <label for="amountUSD">Please enter an amount in USD: </label>
-    <input id="amountUSD" type="text" name="amountUSD">
-    <select id="currency">
+    <input id="amountUSD" type="text" name="amountUSD"> 
+    <label for="amountUSD" class="hidden" id="error1">Error! Only numbers! No letters, spaces, or symbols</label><br>
+
+    <label for="currency">Please select a currency to exchange to:</label>
+    <select id="currency" disabled>
       <option value="EUR">Euro</option>
       <option value="JPY">Japanese Yen</option>
       <option value="GBP">Pound sterling</option>
@@ -27,7 +30,9 @@
       <option value="THB">Thai Baht</option>
       <option value="NOK">Norwegian Krone</option>
       <option value="MYR">Malaysian Ringgit</option>
-    </select>
+    </select> <br>
+    <button type="submit" id="submit" disabled>Exchange!</button>
   </form>
+  <p id="result"> </p>
 </body>
 </html>
