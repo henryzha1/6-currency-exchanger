@@ -3,9 +3,15 @@ import ExchangeRateService from './exchange-rate-service.js';
 
 // business logic
 
-
-
-
+async function getRates() {
+  const response = await ExchangeRateService.getCurrentRates();
+  if(response.conversion_rates) {
+    return response;
+  } else {
+    printError(response);
+    return 0;
+  }
+}
 
 
 function isValid(input) {
@@ -25,7 +31,12 @@ function isValid(input) {
 }
 // UI logic
 
-
+function printError(apiErrorMessage) {
+  document.getElementById("error2").innerText = `${apiErrorMessage}
+  Please resolve error and refresh the page.
+  `;
+  document.getElementById("amountUSD").disabled = true;
+}
 
 function handleInputChange() {
   if(!document.getElementById("amountUSD").value) {
@@ -44,10 +55,10 @@ function handleInputChange() {
 
 function handleExchange(e) {
   e.preventDefault();
-  alert("asdf");
+  console.log(currentRates);
 }
 
-
+const currentRates = getRates();
 document.getElementById("amountUSD").addEventListener("input", handleInputChange);
 document.getElementById("exchange").addEventListener("submit", handleExchange);
 
