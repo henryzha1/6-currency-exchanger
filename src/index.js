@@ -9,10 +9,8 @@ async function getRates() {
     return response;
   } else {
     printError(response);
-    return 0;
   }
 }
-
 
 function isValid(input) {
   let status = true;
@@ -53,13 +51,18 @@ function handleInputChange() {
   }
 }
 
-function handleExchange(e) {
-  e.preventDefault();
-  console.log(currentRates);
+async function handleExchange(event, currentRates) {
+  event.preventDefault();
+  const rates = await currentRates;
+  const amount = parseFloat(document.getElementById("amountUSD").value);
+  const newCurrency = document.getElementById("currency").value;
+  document.getElementById("result").innerText = `${amount.toFixed(2)} USD to ${newCurrency} is ${(amount*rates.conversion_rates[newCurrency]).toFixed(2)}`;
 }
+
 
 const currentRates = getRates();
 document.getElementById("amountUSD").addEventListener("input", handleInputChange);
-document.getElementById("exchange").addEventListener("submit", handleExchange);
+document.getElementById("exchange").addEventListener("submit", (event) => handleExchange(event, currentRates));
+
 
 
